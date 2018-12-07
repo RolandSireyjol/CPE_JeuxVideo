@@ -3,6 +3,7 @@
 #include <irrlicht.h>
 
 #include "events.h"
+#include "player.h"
 
 using namespace irr;
 
@@ -52,43 +53,16 @@ int main()
   driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
   // MK_RS Ajout de skybox---------------end
 
+  // Création du player---------------start
+  Player player(smgr);
+  //receiver.set_player(player);
 
+  // Création du player---------------end
   // Création du triangle selector------start
   scene::ITriangleSelector *selector;
   selector = smgr->createOctreeTriangleSelector(node->getMesh(), node);
   node->setTriangleSelector(selector);
   // Création du triangle selector--------end
-  // Création de la caméra--------------start
-  scene::ICameraSceneNode* camera =
-    smgr->addCameraSceneNodeFPS(nullptr,
-                                100,         // Vitesse de rotation
-                                .3,          // Vitesse de déplacement
-                                -1,          // Identifiant
-                                nullptr, 0,  // Table de changement de touches
-                                false,        // Pas de possibilité de voler
-                                3);          // Vitesse saut
-  camera->setPosition(ic::vector3df(50, 50, -60));
-  camera->setTarget(ic::vector3df(-70, 30, -60));
-  // Création de la caméra----------------end
-  // Et l'animateur/collisionneur-------start
-  scene::ISceneNodeAnimator *anim;
-  anim = smgr->createCollisionResponseAnimator(selector,
-                                               camera,  // Le noeud que l'on veut gérer
-                                               ic::vector3df(70, 70, 70), // "rayons" de la caméra
-                                               ic::vector3df(0, 0, 0),  // gravité
-                                               ic::vector3df(0, 0, 0));  // décalage du centre
-  camera->addAnimator(anim);
-  // Et l'animateur/collisionneur-----------end
-  // MK_RS Ajout de cockpit---------------start
-  is::IAnimatedMesh *mesh_cockpit = smgr->getMesh("data/X-Wing/untitled.obj");
-  is::IAnimatedMeshSceneNode *node_cockpit = smgr->addAnimatedMeshSceneNode(mesh_cockpit);
-  node_cockpit->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  node_cockpit->setScale(ic::vector3df(100, 100, 100));
-  node_cockpit->setRotation(ic::vector3df(0, 180, 0));
-  node_cockpit->setPosition(ic::vector3df(0, -10, 60));
-  node_cockpit->setParent(camera);
-
-  // MK_RS Ajout de cockpit---------------end  
   // MK_RS Ajout de destroyer---------------start
   is::IAnimatedMesh *mesh_destroyer = smgr->getMesh("data/destroyer/destroyer.obj");
   is::IAnimatedMeshSceneNode *node_destroyer = smgr->addAnimatedMeshSceneNode(mesh_destroyer);
