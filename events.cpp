@@ -25,30 +25,34 @@ bool EventReceiver::keyboard(const SEvent &event)
 {
   if (event.KeyInput.PressedDown)
   {
-    ic::vector3df position = node->getPosition();
-    ic::vector3df rotation = node->getRotation();
+    ic::vector3df rotation = player->getRotation();
     switch (event.KeyInput.Key)
     {
       case KEY_ESCAPE:
         exit(0);
       case KEY_KEY_Z: // Avance
-        position.X += 1 * cos(rotation.Y * M_PI / 180.0);
-        position.Z += -1 * sin(rotation.Y * M_PI / 180.0);
+        player->speed += 10;
+        if (player->speed > 100)
+        {
+            player->speed =100;
+        }
         break;
       case KEY_KEY_S: // Recule
-        position.X += -1 * cos(rotation.Y * M_PI / 180.0);
-        position.Z += 1 * sin(rotation.Y * M_PI / 180.0);
+        player->speed -= 10;
+        if (player->speed < 20)
+        {
+            player->speed =20;
+        }
         break;
       case KEY_KEY_D: // Tourne à droite
-        rotation.Y += 10;
+        rotation.Z += 10;
         break;
       case KEY_KEY_Q: // Tourne à gauche
-        rotation.Y -= 10;
+        rotation.Z -= 10;
         break;
       default:;
     }
-    node->setPosition(position);
-    node->setRotation(rotation);
+    player->setRotation(rotation);
   }
 
   return false;
@@ -114,4 +118,8 @@ bool EventReceiver::OnEvent(const SEvent &event)
 void EventReceiver::set_node(irr::scene::ISceneNode *n)
 {
   node = n;
+}
+void EventReceiver::set_player(Player *player)
+{
+  this->player=player;
 }

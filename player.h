@@ -18,11 +18,13 @@ namespace iv = irr::video;
 class Player
 {
     // Moving parameters
-    float speed;
-    is::ICameraSceneNode *camera;
 
     public:
+        float speed;
+        is::ICameraSceneNode *camera;
         Player(is::ISceneManager *smgr);
+        ic::vector3df getRotation();
+        void          setRotation( ic::vector3df rot);
 
 
 };

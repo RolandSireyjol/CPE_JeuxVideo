@@ -55,7 +55,7 @@ int main()
 
   // Création du player---------------start
   Player player(smgr);
-  //receiver.set_player(player);
+  receiver.set_player(&player);
 
   // Création du player---------------end
   // Création du triangle selector------start

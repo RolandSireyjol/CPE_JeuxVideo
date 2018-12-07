@@ -6,10 +6,12 @@
 #include <vector>
 
 #include <irrlicht.h>
+#include "player.h"
 
 class EventReceiver : public irr::IEventReceiver
 {
   irr::scene::ISceneNode *node;
+  Player *player;
   bool button_pressed;
   int  old_x, old_y;
   std::vector<irr::video::ITexture*> textures;
@@ -22,6 +24,9 @@ public:
   bool OnEvent(const irr::SEvent &event);
   void set_node(irr::scene::ISceneNode *node);
   void set_textures(const std::vector<irr::video::ITexture *> &tex){textures=tex;}
+  void set_player(Player *player);
+
+
 };
 
 #endif

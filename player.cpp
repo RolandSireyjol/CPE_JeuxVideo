@@ -34,4 +34,17 @@ Player::Player(is::ISceneManager *smgr)
     node_cockpit->setPosition(ic::vector3df(0, -10, 60));
     node_cockpit->setParent(camera);
     // MK_RS Ajout de cockpit---------------end
+
+}
+
+// Fonctions de déplacement
+
+ic::vector3df Player::getRotation()
+{
+    return camera->getRotation();
+}
+
+void Player::setRotation( ic::vector3df rot)
+{
+    camera->setRotation(rot);
 }
