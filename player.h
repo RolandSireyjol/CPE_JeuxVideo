@@ -23,6 +23,7 @@ class Player
         ic::vector3df speed;
         is::ICameraSceneNode *camera;
         Player(is::ISceneManager *smgr);
+        Player(){}
         ic::vector3df getRotation();
         void          setRotation( ic::vector3df rot);
 

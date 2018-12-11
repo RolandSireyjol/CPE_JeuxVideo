@@ -24,6 +24,7 @@ Player::Player(is::ISceneManager *smgr)
                                   3);          // Vitesse saut
     camera->setPosition(ic::vector3df(50, 50, -60));
     camera->setTarget(ic::vector3df(-70, 30, -60));
+    camera->setFarValue(50000.);
     // Création de la caméra----------------end
     // MK_RS Ajout de cockpit---------------start
     is::IAnimatedMesh *mesh_cockpit = smgr->getMesh("data/X-Wing/untitled.obj");
