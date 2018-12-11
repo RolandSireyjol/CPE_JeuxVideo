@@ -42,15 +42,13 @@ SceneManager::SceneManager(is::ISceneManager *smgr,iv::IVideoDriver  *driver)
 
     // MK_RS Ajout de tir---------------start
     mesh_tir = smgr->getMesh("data/tir/tir.obj");
-    // MK_RS Ajout de tir---------------end
-
 }
 
 void SceneManager::draw_scene(){
     smgr->drawAll();
 }
 
-void SceneManager::manageInput(EKEY_CODE key){
+void SceneManager::manageKeyboardInput(EKEY_CODE key){
     ic::vector3df rotation = player.getRotation()* M_PI / 180.0;
     ic::quaternion rotQuat(rotation);
     float acceleration =0.2f;
@@ -99,8 +97,22 @@ void SceneManager::manageInput(EKEY_CODE key){
   std::cout<<player.camera->getPosition().Z<<std::endl;
 }
 
+void SceneManager::manageTriggerInput(){
+    ic::vector3df pos = player.camera->getPosition();
+    ic::vector3df rotation = player.getRotation();
+    ic::vector3df rotation_rad = rotation* M_PI / 180.0;
+    ic::quaternion rotQuat(rotation_rad);
+    pos -= rotQuat* ic::vector3df (0,1,0);
+    tirs.emplace_back(smgr,mesh_tir,pos,rotation,player.speed);
+}
+
 
 void SceneManager::iteration(){
     // ADDED INERTIA
     player.camera->setPosition(player.camera->getPosition()+player.speed);
+    if(tirs.size()!=0){
+        for(auto tir = tirs.begin();tir!=tirs.end();++tir){
+            tir->iteration();
+        }
+    }
 }

@@ -4,6 +4,7 @@
 #include <list>
 
 #include "player.h"
+#include "tir.h"
 
 using namespace irr;
 
@@ -17,7 +18,8 @@ public:
     SceneManager(is::ISceneManager *smgr,iv::IVideoDriver  *driver);
     SceneManager(){}
     void draw_scene();
-    void manageInput(EKEY_CODE key);
+    void manageKeyboardInput(EKEY_CODE key);
+    void manageTriggerInput();
     void iteration();
 private:
     is::ISceneManager *smgr;
@@ -26,6 +28,5 @@ private:
     is::IAnimatedMesh *mesh_target;
     std::list<is::IAnimatedMeshSceneNode*> targets;
     is::IAnimatedMesh *mesh_tir;
-    std::list<is::IAnimatedMeshSceneNode*> tirs;
-
+    std::list<Tir> tirs;
 };

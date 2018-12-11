@@ -41,7 +41,7 @@ bool EventReceiver::keyboard(const SEvent &event)
     case KEY_KEY_A: // Tourne à droite
     case KEY_KEY_W: // Tourne à gauche
     case KEY_KEY_X: // slows down
-        sceneManager->manageInput(key_pressed);
+        sceneManager->manageKeyboardInput(key_pressed);
       break;
       default:
         break;
@@ -62,6 +62,7 @@ bool EventReceiver::mouse(const SEvent &event)
       button_pressed = true;
       old_x = event.MouseInput.X;
       old_y = event.MouseInput.Y;
+      sceneManager->manageTriggerInput();
       break;
     case EMIE_LMOUSE_LEFT_UP:
       button_pressed = false;
