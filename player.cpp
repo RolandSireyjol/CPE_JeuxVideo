@@ -12,7 +12,7 @@
 
 Player::Player(is::ISceneManager *smgr)
 {
-    speed=20.;
+    speed=ic::vector3df (0,0,0);
     // Création de la caméra--------------start
     camera =
       smgr->addCameraSceneNodeFPS(nullptr,

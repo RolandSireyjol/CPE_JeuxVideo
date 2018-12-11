@@ -20,7 +20,7 @@ class Player
     // Moving parameters
 
     public:
-        float speed;
+        ic::vector3df speed;
         is::ICameraSceneNode *camera;
         Player(is::ISceneManager *smgr);
         ic::vector3df getRotation();

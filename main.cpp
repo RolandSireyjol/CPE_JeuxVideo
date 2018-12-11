@@ -79,6 +79,8 @@ int main()
 
   while(device->run())
   {
+    // ADDED INERTIA
+    player.camera->setPosition(player.camera->getPosition()+player.speed);
     driver->beginScene(true, true, iv::SColor(0,50,100,255));
 
     // Dessin de la scène :
