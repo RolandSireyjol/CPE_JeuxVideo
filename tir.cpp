@@ -10,7 +10,7 @@ Tir::Tir(is::ISceneManager *smgr, is::IAnimatedMesh *mesh_tir, ic::vector3df pos
     node->setPosition(pos);
     ic::vector3df rotation_rad = rot* M_PI / 180.0;
     ic::quaternion rotQuat(rotation_rad);
-    this->speed = rotQuat * ic::vector3df(0,0,400) +  speed;
+    this->speed = rotQuat * ic::vector3df(0,0,10) +  speed;
 }
 
 void Tir::iteration(){
@@ -36,4 +36,16 @@ void Tir::setAttackPoints(int points){
 
 ic::vector3df Tir::getPosition(){
     return node->getPosition();
+}
+
+bool Tir::collision(Collidable& col){
+    bool collided = col.getTransformedBoundingBox().intersectsWithBox(node->getTransformedBoundingBox());
+
+    if(collided && col.getDestructible()){
+        int hp = col.getHealthPoints();
+        hp-= attack_points;
+        col.setHealthPoints(hp);
+    }
+
+    return collided;
 }

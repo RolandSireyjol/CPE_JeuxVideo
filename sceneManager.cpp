@@ -116,7 +116,28 @@ void SceneManager::iteration(){
                 tir = tirs.erase(tir);
             }
             else{
-                ++tir;
+                bool collided=false;
+                if(collidables.size()>0){
+                    auto collidable = collidables.begin();
+                    while(!collided && collidable!=collidables.end()){
+                        collided=tir->collision(*collidable);
+                        if(collided){
+                            tir = tirs.erase(tir);
+                            if(collidable->getHealthPoints()<=0){
+                                collidable = collidables.erase(collidable);
+                            }
+                        }
+                        else{
+                            ++collidable;
+                        }
+                    }
+                    if(!collided){
+                        ++tir;
+                    }
+                }
+                else{
+                    ++tir;
+                }
             }
         }
     }

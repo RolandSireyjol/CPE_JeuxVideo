@@ -1,6 +1,7 @@
 #pragma once
 
 #include <irrlicht.h>
+#include "collidable.h"
 using namespace irr;
 namespace ic = irr::core;
 namespace is = irr::scene;
@@ -17,6 +18,7 @@ public:
     void setAttackPoints(int points);
     int getAttackPoints();
     ic::vector3df getPosition();
+    bool collision(Collidable& col);
 private:
     ic::vector3df speed;
     is::IAnimatedMeshSceneNode* node;
