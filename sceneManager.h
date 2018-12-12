@@ -5,6 +5,7 @@
 
 #include "player.h"
 #include "tir.h"
+#include "collidable.h"
 
 using namespace irr;
 
@@ -24,9 +25,10 @@ public:
 private:
     is::ISceneManager *smgr;
     Player player;
-    is::IAnimatedMeshSceneNode *node_destroyer;
-    is::IAnimatedMesh *mesh_target;
-    std::list<is::IAnimatedMeshSceneNode*> targets;
+    //is::IAnimatedMeshSceneNode *node_destroyer;
+    //is::IAnimatedMesh *mesh_target;
+    //std::list<is::IAnimatedMeshSceneNode*> targets;
+    std::list<Collidable> collidables;
     is::IAnimatedMesh *mesh_tir;
     std::list<Tir> tirs;
 };

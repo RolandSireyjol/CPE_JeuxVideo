@@ -14,7 +14,11 @@ public:
     Tir(is::ISceneManager *smgr, is::IAnimatedMesh *mesh_tir, ic::vector3df pos,ic::vector3df rot,
         ic::vector3df speed);
     void iteration();
+    void setAttackPoints(int points);
+    int getAttackPoints();
+    ic::vector3df getPosition();
 private:
     ic::vector3df speed;
     is::IAnimatedMeshSceneNode* node;
+    int attack_points;
 };

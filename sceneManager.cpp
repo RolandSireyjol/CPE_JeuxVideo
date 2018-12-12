@@ -23,21 +23,17 @@ SceneManager::SceneManager(is::ISceneManager *smgr,iv::IVideoDriver  *driver)
 
     // MK_RS Ajout de destroyer---------------start
     is::IAnimatedMesh *mesh_destroyer = smgr->getMesh("data/destroyer/destroyer.obj");
-    node_destroyer = smgr->addAnimatedMeshSceneNode(mesh_destroyer);
-    node_destroyer->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    node_destroyer->setScale(ic::vector3df(1000, 1000, 1000));
-    node_destroyer->setRotation(ic::vector3df(0, 0, 0));
-    node_destroyer->setPosition(ic::vector3df(500, -1000, 0));
+
+    Collidable destroyer(smgr,mesh_destroyer,ic::vector3df(500, -1000, 0),false,1);
+    destroyer.setScale(ic::vector3df(1000, 1000, 1000));
+    collidables.push_back(destroyer);
 
     // MK_RS Ajout de target---------------start
-    mesh_target = smgr->getMesh("data/target/target.obj");
+    is::IAnimatedMesh *mesh_target = smgr->getMesh("data/target/target.obj");
     for(int i=0;i<10;++i){
-        is::IAnimatedMeshSceneNode *node_target = smgr->addAnimatedMeshSceneNode(mesh_target);
-        node_target->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-        node_target->setScale(ic::vector3df(100, 100, 100));
-        node_target->setRotation(ic::vector3df(0, 0, 0));
-        node_target->setPosition(ic::vector3df(0, -150*i, 0));
-        targets.push_back(node_target);
+        Collidable target(smgr,mesh_target,ic::vector3df(0, 150*i + 200, 0),true,10);
+        target.setScale(ic::vector3df(100, 100, 100));
+        collidables.push_back(target);
     }
 
     // MK_RS Ajout de tir---------------start
@@ -111,8 +107,17 @@ void SceneManager::iteration(){
     // ADDED INERTIA
     player.camera->setPosition(player.camera->getPosition()+player.speed);
     if(tirs.size()!=0){
-        for(auto tir = tirs.begin();tir!=tirs.end();++tir){
+        auto tir = tirs.begin();
+        while(tir!=tirs.end()){
             tir->iteration();
+            ic::vector3df distance = tir->getPosition() - player.camera->getPosition();
+            if(distance.getLength()>40000.0f){
+                std::cout<<distance.getLength()<<std::endl;
+                tir = tirs.erase(tir);
+            }
+            else{
+                ++tir;
+            }
         }
     }
 }

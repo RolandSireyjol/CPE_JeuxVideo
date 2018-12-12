@@ -1,4 +1,6 @@
 #include "tir.h"
+#include <iostream>
+
 
 Tir::Tir(is::ISceneManager *smgr, is::IAnimatedMesh *mesh_tir, ic::vector3df pos,ic::vector3df rot, ic::vector3df speed){
     node = smgr->addAnimatedMeshSceneNode(mesh_tir);
@@ -20,4 +22,18 @@ void Tir::iteration(){
 Tir::~Tir(){
     if(node!=nullptr)
         node->remove();
+    std::cout<<"tir détruit"<<std::endl;
+}
+
+int Tir::getAttackPoints(){
+    return attack_points;
+}
+
+void Tir::setAttackPoints(int points){
+    attack_points = points;
+}
+
+
+ic::vector3df Tir::getPosition(){
+    return node->getPosition();
 }
