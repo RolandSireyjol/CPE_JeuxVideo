@@ -24,16 +24,20 @@ SceneManager::SceneManager(is::ISceneManager *smgr,iv::IVideoDriver  *driver)
     // MK_RS Ajout de destroyer---------------start
     is::IAnimatedMesh *mesh_destroyer = smgr->getMesh("data/destroyer/destroyer.obj");
 
-    Collidable destroyer(smgr,mesh_destroyer,ic::vector3df(500, -1000, 0),false,1);
-    destroyer.setScale(ic::vector3df(1000, 1000, 1000));
-    collidables.push_back(destroyer);
+    //Collidable destroyer(smgr,mesh_destroyer,ic::vector3df(500, -1000, 0),false,1);
+    //destroyer.setScale(ic::vector3df(1000, 1000, 1000));
+    //collidables.push_back(destroyer);
+    collidables.emplace_back(smgr,mesh_destroyer,ic::vector3df(500, -1000, 0),false,1);
+    collidables.back().setScale(ic::vector3df(1000, 1000, 1000));
 
     // MK_RS Ajout de target---------------start
     is::IAnimatedMesh *mesh_target = smgr->getMesh("data/target/target.obj");
     for(int i=0;i<10;++i){
-        Collidable target(smgr,mesh_target,ic::vector3df(0, 150*i + 200, 0),true,10);
-        target.setScale(ic::vector3df(100, 100, 100));
-        collidables.push_back(target);
+	//Collidable target(smgr,mesh_target,ic::vector3df(0, 150*i + 200, 0),true,10);
+	//target.setScale(ic::vector3df(100, 100, 100));
+	//collidables.push_back(target);
+	collidables.emplace_back(smgr,mesh_target,ic::vector3df(0, 150*i + 200, 0),true,10);
+	collidables.back().setScale(ic::vector3df(100, 100, 100));
     }
 
     // MK_RS Ajout de tir---------------start
@@ -125,7 +129,10 @@ void SceneManager::iteration(){
                             tir = tirs.erase(tir);
                             if(collidable->getHealthPoints()<=0){
                                 collidable = collidables.erase(collidable);
-                            }
+			    }
+			    else{
+				++collidable;
+			    }
                         }
                         else{
                             ++collidable;

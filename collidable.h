@@ -12,6 +12,7 @@ class Collidable
 {
 public:
     Collidable() {}
+    ~Collidable();
     Collidable(is::ISceneManager *smgr, is::IAnimatedMesh *mesh, ic::vector3df pos,bool destructible,int health_points);
     void setScale(ic::vector3df scale);
     bool getDestructible();

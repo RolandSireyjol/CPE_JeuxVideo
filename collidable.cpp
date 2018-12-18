@@ -9,6 +9,11 @@ Collidable::Collidable(is::ISceneManager *smgr, is::IAnimatedMesh *mesh, ic::vec
 }
 
 
+Collidable::~Collidable(){
+    if(node!=nullptr)
+	node->remove();
+}
+
 void Collidable::setScale(ic::vector3df scale){
     node->setScale(scale);
 }
