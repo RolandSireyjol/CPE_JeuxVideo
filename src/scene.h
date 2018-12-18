@@ -1,7 +1,10 @@
 #pragma once
 
 #include <string>
+#include <list>
 #include <irrlicht.h>
+
+#include "gameObject.h"
 
 using namespace irr;
 
@@ -14,6 +17,9 @@ class Scene
 public:
     Scene() {}
     Scene(std::string name);
+    GameObject& AddGameObject();
+    GameObject& AddGameObject(std::string name);
 private:
     std::string name;
+    std::list<GameObject> gameObjects;
 };

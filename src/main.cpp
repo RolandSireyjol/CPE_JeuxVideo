@@ -2,12 +2,14 @@
 
 #include <irrlicht.h>
 #include <list>
+#include <iostream>
 
 /*#include "game.h"
 #include "events.h"
 #include "player.h"*/
 
 #include "gameEngine.h"
+#include "scene.h"
 
 using namespace irr;
 
@@ -21,5 +23,8 @@ int main()
   game.run();*/
     GameEngine engine;
     Scene& sc = engine.CreateScene();
+    GameObject& go = sc.AddGameObject("Hello There");
+    std::cout<<go.ToString()<<std::endl;
+
   return 0;
 }
