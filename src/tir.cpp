@@ -39,7 +39,7 @@ ic::vector3df Tir::getPosition(){
     return node->getPosition();
 }
 
-bool Tir::collision(Collidable& col){
+/*bool Tir::collision(Collidable& col){
     bool collided = col.getTransformedBoundingBox().intersectsWithBox(node->getTransformedBoundingBox());
 
     if(collided && col.getDestructible()){
@@ -49,4 +49,4 @@ bool Tir::collision(Collidable& col){
     }
 
     return collided;
-}
+}*/

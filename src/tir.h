@@ -18,7 +18,7 @@ public:
     void setAttackPoints(int points);
     int getAttackPoints();
     ic::vector3df getPosition();
-    bool collision(Collidable& col);
+    //bool collision(Collidable& col);
 private:
     ic::vector3df speed;
     is::IAnimatedMeshSceneNode* node;

@@ -17,7 +17,7 @@ namespace iv = irr::video;
  * EventReceiver::EventReceiver                                           *
 \**************************************************************************/
 EventReceiver::EventReceiver()
-    :sceneManager(nullptr)
+    //:sceneManager(nullptr)
 {
 }
 
@@ -26,7 +26,7 @@ EventReceiver::EventReceiver()
 \*------------------------------------------------------------------------*/
 bool EventReceiver::keyboard(const SEvent &event)
 {
-  if (event.KeyInput.PressedDown)
+  /*if (event.KeyInput.PressedDown)
   {
     EKEY_CODE key_pressed = event.KeyInput.Key;
     switch (key_pressed)
@@ -46,7 +46,7 @@ bool EventReceiver::keyboard(const SEvent &event)
       default:
         break;
     }
-  }
+  }*/
 
   return false;
 }
@@ -56,7 +56,7 @@ bool EventReceiver::keyboard(const SEvent &event)
 \*------------------------------------------------------------------------*/
 bool EventReceiver::mouse(const SEvent &event)
 {
-  switch(event.MouseInput.Event)
+  /*switch(event.MouseInput.Event)
   {
     case EMIE_LMOUSE_PRESSED_DOWN:
       button_pressed = true;
@@ -78,7 +78,7 @@ bool EventReceiver::mouse(const SEvent &event)
     case EMIE_MOUSE_WHEEL:
     default:
       ;
-  }
+  }*/
 
   return false;
 }
@@ -88,7 +88,7 @@ bool EventReceiver::mouse(const SEvent &event)
 \**************************************************************************/
 bool EventReceiver::OnEvent(const SEvent &event)
 {
-  if (!sceneManager) return false;
+  /*if (!sceneManager) return false;
   switch (event.EventType)
   {
     case EET_KEY_INPUT_EVENT:
@@ -96,11 +96,11 @@ bool EventReceiver::OnEvent(const SEvent &event)
     case EET_MOUSE_INPUT_EVENT:
       return mouse(event);
     default:;
-  }
+  }*/
 
   return false;
 }
 
-void EventReceiver::setSceneManager(SceneManager *manager){
+/*void EventReceiver::setSceneManager(SceneManager *manager){
     sceneManager=manager;
-}
+}*/

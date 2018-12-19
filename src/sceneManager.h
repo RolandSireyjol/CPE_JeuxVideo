@@ -13,7 +13,7 @@ namespace ic = irr::core;
 namespace is = irr::scene;
 namespace iv = irr::video;
 
-class SceneManager
+/*class SceneManager
 {
 public:
     SceneManager(is::ISceneManager *smgr,iv::IVideoDriver  *driver);
@@ -31,4 +31,4 @@ private:
     std::list<Collidable> collidables;
     is::IAnimatedMesh *mesh_tir;
     std::list<Tir> tirs;
-};
+};*/

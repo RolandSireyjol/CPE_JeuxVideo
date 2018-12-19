@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-SceneManager::SceneManager(is::ISceneManager *smgr,iv::IVideoDriver  *driver)
-    :player(smgr)
+/*SceneManager::SceneManager(is::ISceneManager *smgr,iv::IVideoDriver  *driver)
 {
     this->smgr = smgr;
 
@@ -148,4 +147,4 @@ void SceneManager::iteration(){
             }
         }
     }
-}
+}*/

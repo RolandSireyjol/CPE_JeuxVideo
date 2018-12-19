@@ -9,7 +9,6 @@
 #include "player.h"*/
 
 #include "gameEngine.h"
-#include "scene.h"
 
 using namespace irr;
 
@@ -22,9 +21,7 @@ int main()
   /*Game game;
   game.run();*/
     GameEngine engine;
-    Scene& sc = engine.CreateScene();
-    GameObject& go = sc.AddGameObject("Hello There");
-    std::cout<<go.ToString()<<std::endl;
+    engine.run();
 
   return 0;
 }

@@ -12,15 +12,13 @@ class Collidable
 {
 public:
     Collidable() {}
-    ~Collidable();
-    Collidable(is::ISceneManager *smgr, is::IAnimatedMesh *mesh, ic::vector3df pos,bool destructible,int health_points);
-    void setScale(ic::vector3df scale);
-    bool getDestructible();
-    ic::aabbox3d< f32 > getTransformedBoundingBox ();
-    int getHealthPoints();
-    void setHealthPoints(int hp);
+
+    bool& IsDestructible();
+    int& AttackPoints();
+    int& HealthPoints();
+
 private:
-    is::IAnimatedMeshSceneNode* node;
-    bool destructible;
+    bool is_destructible;
     int health_points;
+    int attack_points;
 };

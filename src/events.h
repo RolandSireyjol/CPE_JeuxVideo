@@ -18,12 +18,12 @@ class EventReceiver : public irr::IEventReceiver
   bool keyboard(const irr::SEvent &event);
   bool mouse(const irr::SEvent &event);
 
-  SceneManager* sceneManager;
+  //SceneManager* sceneManager;
 
 public:
   EventReceiver();
   bool OnEvent(const irr::SEvent &event);
-  void setSceneManager(SceneManager* manager);
+  //void setSceneManager(SceneManager* manager);
 
 };
 

@@ -2,7 +2,7 @@
 
 
 #include "player.h"
-
+#include <iostream>
 
 
 /**************************************************************************\
@@ -10,7 +10,7 @@
 \**************************************************************************/
 
 
-Player::Player(is::ISceneManager *smgr)
+/*Player::Player(is::ISceneManager *smgr)
 {
     speed=ic::vector3df (0,0,0);
     // Création de la caméra--------------start
@@ -48,4 +48,30 @@ ic::vector3df Player::getRotation()
 void Player::setRotation( ic::vector3df rot)
 {
     camera->setRotation(rot);
+}*/
+
+Player::Player(is::ISceneNode *parent, is::ISceneManager *mgr, s32 id,
+               const core::vector3df &position,
+               const core::vector3df &rotation,
+               const core::vector3df &scale)
+    :BehaviourNode(parent, mgr,id,position,rotation,scale)
+{}
+
+void Player::Start(){
+     scene::ISceneNode * gameObject =getParent();
+     is::ICameraSceneNode *camera = getSceneManager()->addCameraSceneNodeFPS(gameObject,
+                                 100,         // Vitesse de rotation
+                                 .3,          // Vitesse de déplacement
+                                 -1,          // Identifiant
+                                 nullptr, 0,  // Table de changement de touches
+                                 false,        // Pas de possibilité de voler
+                                 3);          // Vitesse saut
+     camera->setPosition(ic::vector3df(50, 50, -60));
+     camera->setTarget(ic::vector3df(-70, 30, -60));
+     camera->setFarValue(50000.);
+
+}
+
+void Player::OnMouseDown(){
+    std::cout<<"Player!!"<<std::endl;
 }
