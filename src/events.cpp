@@ -17,7 +17,6 @@ namespace iv = irr::video;
  * EventReceiver::EventReceiver                                           *
 \**************************************************************************/
 EventReceiver::EventReceiver()
-    //:sceneManager(nullptr)
 {
 }
 
@@ -26,27 +25,11 @@ EventReceiver::EventReceiver()
 \*------------------------------------------------------------------------*/
 bool EventReceiver::keyboard(const SEvent &event)
 {
-  /*if (event.KeyInput.PressedDown)
+  if (event.KeyInput.PressedDown)
   {
     EKEY_CODE key_pressed = event.KeyInput.Key;
-    switch (key_pressed)
-    {
-      case KEY_ESCAPE:
-        exit(0);
-        break;
-    case KEY_KEY_Z: // Avance
-    case KEY_KEY_S: // Recule
-    case KEY_KEY_D: // Tourne à droite
-    case KEY_KEY_Q: // Tourne à gauche
-    case KEY_KEY_A: // Tourne à droite
-    case KEY_KEY_W: // Tourne à gauche
-    case KEY_KEY_X: // slows down
-        sceneManager->manageKeyboardInput(key_pressed);
-      break;
-      default:
-        break;
-    }
-  }*/
+    keyDowns[key_pressed] = true;
+  }
 
   return false;
 }
@@ -88,7 +71,7 @@ bool EventReceiver::mouse(const SEvent &event)
 \**************************************************************************/
 bool EventReceiver::OnEvent(const SEvent &event)
 {
-  /*if (!sceneManager) return false;
+
   switch (event.EventType)
   {
     case EET_KEY_INPUT_EVENT:
@@ -96,11 +79,20 @@ bool EventReceiver::OnEvent(const SEvent &event)
     case EET_MOUSE_INPUT_EVENT:
       return mouse(event);
     default:;
-  }*/
+  }
 
   return false;
 }
 
-/*void EventReceiver::setSceneManager(SceneManager *manager){
-    sceneManager=manager;
-}*/
+bool EventReceiver::GetKeyDown(EKEY_CODE key){
+    auto it = keyDowns.find(key);
+    if(it==keyDowns.end())
+	return false;
+    return it->second;
+}
+
+void EventReceiver::ClearKeyDowns(){
+    for(auto it = keyDowns.begin(); it!=keyDowns.end();++it){
+	it->second = false;
+    }
+}

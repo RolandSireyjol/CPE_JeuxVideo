@@ -1,32 +1,38 @@
 #pragma once
 
 #include <irrlicht.h>
-#include <ISceneNode.h>
+#include <list>
+#include "node.h"
+//#include "gameEngine.h"
 
 using namespace irr;
 namespace ic = irr::core;
 namespace is = irr::scene;
 namespace iv = irr::video;
 
-enum GameNodeType{
-    GAME_NODE,
-    COLLISION_NODE,
-    BEHAVIOUR_NODE,
-    SCENE_NODE
-};
 
-class GameNode : public is::ISceneNode
+class GameNode : public Node
 {
 public:
     GameNode(is::ISceneNode *parent, is::ISceneManager *mgr, s32 id=-1,
              const core::vector3df &position=core::vector3df(0, 0, 0),
              const core::vector3df &rotation=core::vector3df(0, 0, 0),
              const core::vector3df &scale=core::vector3df(1.0f, 1.0f, 1.0f)) ;
-    virtual void Destroy();
-    void render(){}
-    const irr::core::aabbox3d<f32>& getBoundingBox() const;
 
-protected:
-    core::aabbox3d<f32> bounding_box;
-    bool destroy_flag;
+   // GameNode(is::ISceneNode *parent);
+
+   // GameNode();
+    NodeTypes getType();
+    void Destroy();
+    void AddComponent(Node* component);
+private:
+    std::list<Node*> components;
 };
+
+
+/*template <class T> T* GameNode::AddComponent(){
+    T* t = new T(this,getEngine()->GetSceneManager());
+    //engine->AddNode(t);
+    components.push_back((Node*)t);
+    return t;
+}*/

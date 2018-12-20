@@ -3,27 +3,26 @@
 #ifndef EVENTS_H
 #define EVENTS_H
 
-#include <vector>
+#include <map>
 
 #include <irrlicht.h>
-#include "sceneManager.h"
+using namespace irr;
+namespace ic = irr::core;
+namespace is = irr::scene;
+namespace iv = irr::video;
 
 class EventReceiver : public irr::IEventReceiver
 {
 
-  bool button_pressed;
-  int  old_x, old_y;
-  int current_texture;
-
+  std::map<EKEY_CODE,bool> keyDowns;
   bool keyboard(const irr::SEvent &event);
   bool mouse(const irr::SEvent &event);
-
-  //SceneManager* sceneManager;
 
 public:
   EventReceiver();
   bool OnEvent(const irr::SEvent &event);
-  //void setSceneManager(SceneManager* manager);
+  bool GetKeyDown(EKEY_CODE key);
+  void ClearKeyDowns();
 
 };
 

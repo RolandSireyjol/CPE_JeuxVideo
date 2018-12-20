@@ -3,14 +3,16 @@
 #include <irrlicht.h>
 #include <ISceneNode.h>
 
-#include "gameNode.h"
+#include "node.h"
+#include "events.h"
+#include "gameEngine.h"
 
 using namespace irr;
 namespace ic = irr::core;
 namespace is = irr::scene;
 namespace iv = irr::video;
 
-class BehaviourNode : public GameNode
+class BehaviourNode : public Node
 {
 public:
     BehaviourNode(is::ISceneNode *parent, is::ISceneManager *mgr, s32 id=-1,
@@ -21,4 +23,13 @@ public:
     virtual void Update();
     virtual void OnCollisionEnter();
     virtual void OnMouseDown();
+
+    virtual ~BehaviourNode(){}
+    NodeTypes getType();
+    void SetEngine(GameEngine* eng);
+    bool start_flag;
+    static EventReceiver* input;
+protected:
+    static GameEngine* engine;
+private:
 };

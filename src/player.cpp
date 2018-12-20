@@ -2,6 +2,7 @@
 
 
 #include "player.h"
+#include "gameNode.h"
 #include <iostream>
 
 
@@ -9,46 +10,6 @@
  * class player                                        *
 \**************************************************************************/
 
-
-/*Player::Player(is::ISceneManager *smgr)
-{
-    speed=ic::vector3df (0,0,0);
-    // Création de la caméra--------------start
-    camera =
-      smgr->addCameraSceneNodeFPS(nullptr,
-                                  100,         // Vitesse de rotation
-                                  .3,          // Vitesse de déplacement
-                                  -1,          // Identifiant
-                                  nullptr, 0,  // Table de changement de touches
-                                  false,        // Pas de possibilité de voler
-                                  3);          // Vitesse saut
-    camera->setPosition(ic::vector3df(50, 50, -60));
-    camera->setTarget(ic::vector3df(-70, 30, -60));
-    camera->setFarValue(50000.);
-    // Création de la caméra----------------end
-    // MK_RS Ajout de cockpit---------------start
-    is::IAnimatedMesh *mesh_cockpit = smgr->getMesh("data/X-Wing/untitled.obj");
-    is::IAnimatedMeshSceneNode *node_cockpit = smgr->addAnimatedMeshSceneNode(mesh_cockpit);
-    node_cockpit->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    node_cockpit->setScale(ic::vector3df(100, 100, 100));
-    node_cockpit->setRotation(ic::vector3df(0, 180, 0));
-    node_cockpit->setPosition(ic::vector3df(0, -10, 60));
-    node_cockpit->setParent(camera);
-    // MK_RS Ajout de cockpit---------------end
-
-}
-
-// Fonctions de déplacement
-
-ic::vector3df Player::getRotation()
-{
-    return camera->getRotation();
-}
-
-void Player::setRotation( ic::vector3df rot)
-{
-    camera->setRotation(rot);
-}*/
 
 Player::Player(is::ISceneNode *parent, is::ISceneManager *mgr, s32 id,
                const core::vector3df &position,
@@ -59,19 +20,37 @@ Player::Player(is::ISceneNode *parent, is::ISceneManager *mgr, s32 id,
 
 void Player::Start(){
      scene::ISceneNode * gameObject =getParent();
-     is::ICameraSceneNode *camera = getSceneManager()->addCameraSceneNodeFPS(gameObject,
-                                 100,         // Vitesse de rotation
-                                 .3,          // Vitesse de déplacement
-                                 -1,          // Identifiant
-                                 nullptr, 0,  // Table de changement de touches
-                                 false,        // Pas de possibilité de voler
-                                 3);          // Vitesse saut
+     camera = getSceneManager()->addCameraSceneNode(gameObject);
      camera->setPosition(ic::vector3df(50, 50, -60));
      camera->setTarget(ic::vector3df(-70, 30, -60));
      camera->setFarValue(50000.);
+
+     is::IAnimatedMesh* mesh = getSceneManager()->getMesh("data/X-Wing/untitled.obj");
+
+     is::IMeshSceneNode* meshNode = getSceneManager()->addMeshSceneNode(mesh,getParent());
+     meshNode->setScale(core::vector3df(100,100,100));
+
+     mesh_tir = getSceneManager()->getMesh("data/tir/tir.obj");
 
 }
 
 void Player::OnMouseDown(){
     std::cout<<"Player!!"<<std::endl;
+}
+
+void Player::Update(){
+
+    if(input->GetKeyDown(KEY_KEY_Z )){
+	GameNode* gameNode = (GameNode*)getParent();
+	core::vector3df pos = gameNode->getPosition ();
+	pos +=core::vector3df(1.0,1.0,1.0);
+	gameNode->setPosition (pos);
+	std::cout<<pos.X<<std::endl;
+    }
+    if(input->GetKeyDown(KEY_KEY_M)){
+	GameNode* gn = engine->CreateGameNode();
+	Collidable* col = engine->AddComponentToGameNode<Collidable>(gn);
+	gn->setPosition(getParent()->getPosition());
+	col->mesh = mesh_tir;
+    }
 }

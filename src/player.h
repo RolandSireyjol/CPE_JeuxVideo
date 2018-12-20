@@ -4,9 +4,11 @@
 #define PLAYER_H
 
 #include <vector>
+#include <iostream>
 
 #include <irrlicht.h>
 #include "behaviourNode.h"
+#include "gameNode.h"
 #include "collidable.h"
 
 using namespace irr;
@@ -41,9 +43,15 @@ public:
            const core::vector3df &position=core::vector3df(0, 0, 0),
            const core::vector3df &rotation=core::vector3df(0, 0, 0),
            const core::vector3df &scale=core::vector3df(1.0f, 1.0f, 1.0f)) ;
+
+
+
 private:
     void Start();
+    void Update();
     void OnMouseDown();
+    is::IAnimatedMesh* mesh_tir;
+    is::ICameraSceneNode *camera;
 };
 
 #endif

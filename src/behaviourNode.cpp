@@ -4,7 +4,7 @@ BehaviourNode::BehaviourNode(is::ISceneNode *parent, is::ISceneManager *mgr, s32
                              const core::vector3df &position,
                              const core::vector3df &rotation,
                              const core::vector3df &scale)
-    :GameNode(parent, mgr,id,position,rotation,scale)
+    :Node(parent, mgr,id,position,rotation,scale),start_flag(true)
 {}
 
 void BehaviourNode::Start(){
@@ -22,4 +22,14 @@ void BehaviourNode::OnMouseDown(){
 
 void BehaviourNode::Update(){
 
+}
+
+NodeTypes BehaviourNode::getType(){
+    return NodeTypes::BEHAVIOUR;
+}
+
+
+GameEngine* BehaviourNode::engine;
+void BehaviourNode::SetEngine(GameEngine* eng){
+    engine = eng;
 }
