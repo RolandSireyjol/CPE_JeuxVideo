@@ -33,9 +33,8 @@ Player::Player(is::ISceneManager *smgr)
     node_cockpit->setScale(ic::vector3df(100, 100, 100));
     node_cockpit->setRotation(ic::vector3df(0, 180, 0));
     node_cockpit->setPosition(ic::vector3df(0, -10, 60));
-    node_cockpit->setParent(camera);
+    //node_cockpit->setParent(camera);
     // MK_RS Ajout de cockpit---------------end
-
 }
 
 // Fonctions de déplacement

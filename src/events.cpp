@@ -17,7 +17,6 @@ namespace iv = irr::video;
  * EventReceiver::EventReceiver                                           *
 \**************************************************************************/
 EventReceiver::EventReceiver()
-    :sceneManager(nullptr)
 {
 }
 
@@ -41,7 +40,6 @@ bool EventReceiver::keyboard(const SEvent &event)
     case KEY_KEY_A: // Tourne à droite
     case KEY_KEY_W: // Tourne à gauche
     case KEY_KEY_X: // slows down
-        sceneManager->manageKeyboardInput(key_pressed);
       break;
       default:
         break;
@@ -59,21 +57,10 @@ bool EventReceiver::mouse(const SEvent &event)
   switch(event.MouseInput.Event)
   {
     case EMIE_LMOUSE_PRESSED_DOWN:
-      button_pressed = true;
-      old_x = event.MouseInput.X;
-      old_y = event.MouseInput.Y;
-      sceneManager->manageTriggerInput();
       break;
     case EMIE_LMOUSE_LEFT_UP:
-      button_pressed = false;
       break;
     case EMIE_MOUSE_MOVED:
-      if (button_pressed)
-      {
-        //rotation.Y -= (event.MouseInput.X - old_x);
-        old_x = event.MouseInput.X;
-        old_y = event.MouseInput.Y;
-      }
       break;
     case EMIE_MOUSE_WHEEL:
     default:
@@ -88,10 +75,11 @@ bool EventReceiver::mouse(const SEvent &event)
 \**************************************************************************/
 bool EventReceiver::OnEvent(const SEvent &event)
 {
-  if (!sceneManager) return false;
   switch (event.EventType)
   {
     case EET_KEY_INPUT_EVENT:
+      if(camera->OnEvent(event))
+	  return false;
       return keyboard(event);
     case EET_MOUSE_INPUT_EVENT:
       return mouse(event);
@@ -99,8 +87,4 @@ bool EventReceiver::OnEvent(const SEvent &event)
   }
 
   return false;
-}
-
-void EventReceiver::setSceneManager(SceneManager *manager){
-    sceneManager=manager;
 }
